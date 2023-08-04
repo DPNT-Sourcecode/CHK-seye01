@@ -1,6 +1,6 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
-from typing import Dict, Tuple, Optional
+from typing import Tuple, Optional
 
 
 # create sku class
@@ -11,8 +11,8 @@ class SKU:
             cost: int,
             count: int = 0,
             total_cost: int = 0,
-            multibuy: Optional[Tuple[int, int]]=None,
-            multibuy2: Optional[Tuple[int, int]]=None
+            multibuy: Optional[Tuple[int, int]] = None,
+            multibuy2: Optional[Tuple[int, int]] = None
     ):
         self.sku = sku
         self.cost = cost
@@ -35,14 +35,13 @@ class SKU:
         self.total_cost = self.total_cost + (self.count * self.cost)
 
 
-current_skus = {
+sku_manager = {
     "A": SKU("A", 50, multibuy=(3, 130), multibuy2=(5, 200)),
     "B": SKU("B", 30, multibuy=(2, 45)),
-    "C": SKU("C", 20 ),
-    "D": SKU("D", 15 ),
-    "E": SKU("E", 40 )
+    "C": SKU("C", 20),
+    "D": SKU("D", 15),
+    "E": SKU("E", 40)
 }
-
 
 
 def assert_valid_input(skus: str) -> None:
@@ -54,53 +53,20 @@ def assert_valid_input(skus: str) -> None:
             raise ValueError("Invalid sku")
 
 
-def skus_to_dict(skus: str) -> Dict[str, int]:
+def get_sku_counts(skus: str) -> None:
     """
-    Takes a string of skus and returns a dict of skus and their counts
+    Get the counts for each sku
     """
-    sku_count = {"A": 0, "B": 0, "C": 0, "D": 0}
     for sku in skus:
-        sku_count[sku] += 1
-    return sku_count
+        sku_manager[sku].count += 1
 
 
-def reduce_cost_with_multibuy(sku: str, count: int, multibuy_offers: Dict[str, Tuple[int, int]]) -> Tuple[int, int]:
-    if sku in multibuy_offers:
-        multibuy_count, multibuy_cost = multibuy_offers[sku]
-        multibuy_cost = multibuy_cost * (count // multibuy_count)
-        count = count % multibuy_count
-        return multibuy_cost, count
-
-
-def handle_multibuy(sku: str, count: int) -> Tuple[int, int]:
+def calculate_costs() -> None:
     """
-    Handle the multi-buy offers.
-    Returns a cost after multi-buy offers have been applied and the remaining count
+    Calculate the total cost for each sku
     """
-    first_multibuy_offers = {
-        "A": (5, 200)
-    }
-    current_multibuy_offers = {
-        "A": (3, 130), "B": (2, 45)
-    }
-     = reduce_cost_with_multibuy(sku, count, first_multibuy_offers)
-
-
-
-def calculate_cost(sku: str, count: int) -> int:
-    """Calculate the cost of a sku based on the count"""
-    if sku == "A":
-        multibuy_cost, new_count = handle_multibuy(sku, count)
-        return A_COST * new_count + multibuy_cost
-    elif sku == "B":
-        multibuy_cost, new_count = handle_multibuy(sku, count)
-        return B_COST * new_count + multibuy_cost
-    elif sku == "C":
-        return C_COST * count
-    elif sku == "D":
-        return D_COST * count
-    else:
-        raise ValueError("Invalid sku")
+    for sku in sku_manager:
+        sku_manager[sku].calculate_cost()
 
 
 def checkout(skus: str) -> int:
@@ -110,10 +76,12 @@ def checkout(skus: str) -> int:
     """
     try:
         assert_valid_input(skus)
-        sku_dict = skus_to_dict(skus)
+        get_sku_counts(skus)
+        calculate_costs()
         total_cost = 0
-        for sku in sku_dict:
-            total_cost += calculate_cost(sku, sku_dict[sku])
+        for sku in sku_manager:
+            total_cost += sku_manager[sku].total_cost
         return total_cost
     except ValueError as e:
         return -1
+
