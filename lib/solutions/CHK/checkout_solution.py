@@ -52,8 +52,11 @@ sku_manager = {
     "N": SKU("N", 40),
     "O": SKU("O", 10),
     "P": SKU("P", 50, multibuy=(5, 200)),
-    "Q": SKU
 }
+
+
+def read_skus() -> None:
+    raise NotImplementedError
 
 
 def assert_valid_input(skus: str) -> None:
