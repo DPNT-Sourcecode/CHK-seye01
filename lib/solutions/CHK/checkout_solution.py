@@ -35,15 +35,6 @@ class SKU:
         self.total_cost = self.total_cost + (self.count * self.cost)
 
 
-sku_manager = {
-    "A": SKU("A", 50, multibuy=(5, 200), multibuy2=(3, 130)),  # The best offer must go first... for now
-    "B": SKU("B", 30, multibuy=(2, 45)),
-    "C": SKU("C", 20),
-    "D": SKU("D", 15),
-    "E": SKU("E", 40)
-}
-
-
 def assert_valid_input(skus: str) -> None:
     """Assert that the input is a string of valid skus"""
     if not isinstance(skus, str):
@@ -76,6 +67,14 @@ def checkout(skus: str) -> int:
     The main method for the checkout process
     Must take a str of items (skus) and return an int representing the total cost
     """
+    sku_manager = {
+        "A": SKU("A", 50, multibuy=(5, 200), multibuy2=(3, 130)),  # The best offer must go first... for now
+        "B": SKU("B", 30, multibuy=(2, 45)),
+        "C": SKU("C", 20),
+        "D": SKU("D", 15),
+        "E": SKU("E", 40)
+    }
+    
     try:
         assert_valid_input(skus)
         get_sku_counts(skus)
@@ -86,6 +85,7 @@ def checkout(skus: str) -> int:
         return total_cost
     except ValueError as e:
         return -1
+
 
 
 
