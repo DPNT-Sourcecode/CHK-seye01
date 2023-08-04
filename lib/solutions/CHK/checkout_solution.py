@@ -8,6 +8,15 @@ C_COST = 20
 D_COST = 15
 
 
+# create sku class
+class SKU:
+    def __init__(self, sku, cost, multibuy):
+        self.sku = sku
+        self.cost = cost
+        self.multibuy = multibuy
+
+
+
 def assert_valid_input(skus: str) -> None:
     """Assert that the input is a string of valid skus"""
     if not isinstance(skus, str):
@@ -27,19 +36,27 @@ def skus_to_dict(skus: str) -> Dict[str, int]:
     return sku_count
 
 
+def reduce_cost_with_multibuy(sku: str, count: int, multibuy_offers: Dict[str, Tuple[int, int]]) -> Tuple[int, int]:
+    if sku in multibuy_offers:
+        multibuy_count, multibuy_cost = multibuy_offers[sku]
+        multibuy_cost = multibuy_cost * (count // multibuy_count)
+        count = count % multibuy_count
+        return multibuy_cost, count
+
+
 def handle_multibuy(sku: str, count: int) -> Tuple[int, int]:
     """
     Handle the multi-buy offers.
     Returns a cost after multi-buy offers have been applied and the remaining count
     """
-    current_multiby_offers = {
+    first_multibuy_offers = {
+        "A": (5, 200)
+    }
+    current_multibuy_offers = {
         "A": (3, 130), "B": (2, 45)
     }
-    if sku in current_multiby_offers:
-        multibuy_count, multibuy_cost = current_multiby_offers[sku]
-        multibuy_cost = multibuy_cost * (count // multibuy_count)
-        count = count % multibuy_count
-        return multibuy_cost, count
+     = reduce_cost_with_multibuy(sku, count, first_multibuy_offers)
+
 
 
 def calculate_cost(sku: str, count: int) -> int:
@@ -72,4 +89,5 @@ def checkout(skus: str) -> int:
         return total_cost
     except ValueError as e:
         return -1
+
 
