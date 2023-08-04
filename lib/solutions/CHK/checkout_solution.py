@@ -14,13 +14,32 @@ class SKU:
             self,
             sku: str,
             cost: int,
+            count: int,
+            total_cost: int = 0,
             multibuy: Optional[Tuple[int, int]]=None,
             multibuy2: Optional[Tuple[int, int]]=None
     ):
         self.sku = sku
         self.cost = cost
+        self.count = count
+        self.total_cost = total_cost
         self.multibuy = multibuy
         self.multibuy2 = multibuy2
+
+    def _handle_multibuy(self, multibuy: Tuple[int, int]) -> None:
+        multibuy_count, multibuy_cost = multibuy
+        offer_times = self.count // multibuy_count
+        self.count = self.count - (offer_times * multibuy_count)
+        self.cost = self.cost + (offer_times * multibuy_cost)
+
+    def calculate_cost(self) -> int:
+        if self.multibuy:
+            self._handle_multibuy(self.multibuy)
+        if self.multibuy2:
+            self._handle_multibuy(self.multibuy2)
+
+
+
 
 
 current_skus = {
@@ -105,6 +124,7 @@ def checkout(skus: str) -> int:
         return total_cost
     except ValueError as e:
         return -1
+
 
 
 
