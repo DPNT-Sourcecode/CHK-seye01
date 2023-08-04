@@ -10,7 +10,13 @@ D_COST = 15
 
 # create sku class
 class SKU:
-    def __init__(self, sku: str, cost: int, multibuy: Optional[Tuple[int, int]]=None, multibuy2: Optional[Tuple[int, int]]=None):
+    def __init__(
+            self,
+            sku: str,
+            cost: int,
+            multibuy: Optional[Tuple[int, int]]=None,
+            multibuy2: Optional[Tuple[int, int]]=None
+    ):
         self.sku = sku
         self.cost = cost
         self.multibuy = multibuy
@@ -18,7 +24,7 @@ class SKU:
 
 
 current_skus = {
-    "A": SKU("A", 50, (5, 200)),
+    "A": SKU("A", 50, (3, 130), (5, 200)),
     "B": SKU("B", 30, (2, 45)),
     "C": SKU("C", 20, None),
     "D": SKU("D", 15, None),
@@ -99,6 +105,7 @@ def checkout(skus: str) -> int:
         return total_cost
     except ValueError as e:
         return -1
+
 
 
 
