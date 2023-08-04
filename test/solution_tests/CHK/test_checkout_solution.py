@@ -24,10 +24,12 @@ def test_new_items() -> None:
     assert checkout("FF") == 20
     assert checkout("FFF") == 20
     assert checkout("FFFF") == 30
+    assert checkout("FFFFF") == 40
 
 
 def test_checkout_invalid() -> None:
     assert checkout("Z") == -1
     assert checkout(19) == -1
     assert checkout("A19") == -1
+
 
