@@ -58,7 +58,7 @@ def calculate_cost(sku: str, count: int) -> int:
         raise ValueError("Invalid sku")
 
 
-def checklite(skus):
+def checkout(skus: str) -> int:
     """
     The main method for the checkout process
     Must take a str of items (skus) and return an int representing the total cost
@@ -69,6 +69,7 @@ def checklite(skus):
         total_cost = 0
         for sku in sku_dict:
             total_cost += calculate_cost(sku, sku_dict[sku])
+        return total_cost
     except ValueError as e:
-        print(e)
         return -1
+

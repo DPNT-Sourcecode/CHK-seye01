@@ -2,6 +2,7 @@ from lib.solutions.CHK.checkout_solution import checkout
 
 
 def test_checkout() -> None:
+    assert checkout("") == 0
     assert checkout("A") == 50
     assert checkout("B") == 30
     assert checkout("C") == 20
@@ -18,3 +19,4 @@ def test_checkout_invalid() -> None:
     assert checkout("E") == -1
     assert checkout(19) == -1
     assert checkout("A19") == -1
+
