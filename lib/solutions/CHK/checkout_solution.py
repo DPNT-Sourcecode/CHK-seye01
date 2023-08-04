@@ -36,7 +36,7 @@ class SKU:
 
 
 sku_manager = {
-    "A": SKU("A", 50, multibuy=(3, 130), multibuy2=(5, 200)),
+    "A": SKU("A", 50, multibuy=(5, 200), multibuy2=(3, 130)),  # The best offer must go first... for now
     "B": SKU("B", 30, multibuy=(2, 45)),
     "C": SKU("C", 20),
     "D": SKU("D", 15),
@@ -49,7 +49,7 @@ def assert_valid_input(skus: str) -> None:
     if not isinstance(skus, str):
         raise ValueError("Input must be a string")
     for sku in skus:
-        if sku not in ["A", "B", "C", "D", "E"]:
+        if sku not in sku_manager:
             raise ValueError("Invalid sku")
 
 
@@ -84,4 +84,5 @@ def checkout(skus: str) -> int:
         return total_cost
     except ValueError as e:
         return -1
+
 
