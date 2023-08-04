@@ -7,6 +7,7 @@ def test_checkout() -> None:
     assert checkout("B") == 30
     assert checkout("C") == 20
     assert checkout("D") == 15
+    assert checkout("E") == 40
     assert checkout("AAA") == 130
     assert checkout("BB") == 45
     assert checkout("ABCD") == 115
@@ -22,6 +23,7 @@ def test_checkout_invalid() -> None:
     assert checkout("Z") == -1
     assert checkout(19) == -1
     assert checkout("A19") == -1
+
 
 
 
