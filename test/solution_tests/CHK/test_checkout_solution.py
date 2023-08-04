@@ -20,5 +20,3 @@ def test_checkout_invalid() -> None:
     assert checkout("E") == -1
     assert checkout(19) == -1
     assert checkout("A19") == -1
-
-

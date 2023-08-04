@@ -2,11 +2,6 @@
 # skus = unicode string
 from typing import Dict, Tuple, Optional
 
-A_COST = 50
-B_COST = 30
-C_COST = 20
-D_COST = 15
-
 
 # create sku class
 class SKU:
@@ -14,7 +9,7 @@ class SKU:
             self,
             sku: str,
             cost: int,
-            count: int,
+            count: int = 0,
             total_cost: int = 0,
             multibuy: Optional[Tuple[int, int]]=None,
             multibuy2: Optional[Tuple[int, int]]=None
@@ -30,24 +25,22 @@ class SKU:
         multibuy_count, multibuy_cost = multibuy
         offer_times = self.count // multibuy_count
         self.count = self.count - (offer_times * multibuy_count)
-        self.cost = self.cost + (offer_times * multibuy_cost)
+        self.total_cost = self.total_cost + (offer_times * multibuy_cost)
 
     def calculate_cost(self) -> int:
         if self.multibuy:
             self._handle_multibuy(self.multibuy)
         if self.multibuy2:
             self._handle_multibuy(self.multibuy2)
-
-
-
+        self.total_cost = self.total_cost + (self.count * self.cost)
 
 
 current_skus = {
-    "A": SKU("A", 50, (3, 130), (5, 200)),
-    "B": SKU("B", 30, (2, 45)),
-    "C": SKU("C", 20, None),
-    "D": SKU("D", 15, None),
-    "E": SKU("E", 40, None)
+    "A": SKU("A", 50, multibuy=(3, 130), multibuy2=(5, 200)),
+    "B": SKU("B", 30, multibuy=(2, 45)),
+    "C": SKU("C", 20 ),
+    "D": SKU("D", 15 ),
+    "E": SKU("E", 40 )
 }
 
 
@@ -124,8 +117,3 @@ def checkout(skus: str) -> int:
         return total_cost
     except ValueError as e:
         return -1
-
-
-
-
-
