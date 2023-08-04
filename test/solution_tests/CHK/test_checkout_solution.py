@@ -40,7 +40,7 @@ def test_basic_data_entry() -> None:
     assert checkout("H") == 10
     assert checkout("I") == 35
     assert checkout("J") == 60
-    assert checkout("K") == 80
+    assert checkout("K") == 70
     assert checkout("L") == 90
     assert checkout("M") == 15
     assert checkout("N") == 40
@@ -48,14 +48,14 @@ def test_basic_data_entry() -> None:
     assert checkout("P") == 50
     assert checkout("Q") == 30
     assert checkout("R") == 50
-    assert checkout("S") == 30
+    assert checkout("S") == 20
     assert checkout("T") == 20
     assert checkout("U") == 40
     assert checkout("V") == 50
     assert checkout("W") == 20
-    assert checkout("X") == 90
-    assert checkout("Y") == 10
-    assert checkout("Z") == 50
+    assert checkout("X") == 17
+    assert checkout("Y") == 20
+    assert checkout("Z") == 21
 
 
 def test_basic_offers_are_correct() -> None:
@@ -64,7 +64,7 @@ def test_basic_offers_are_correct() -> None:
     """
     assert checkout("HHHHH") == 45
     assert checkout("HHHHHHHHHH") == 80
-    assert checkout("KK") == 150
+    assert checkout("KK") == 120
     assert checkout("NNNM") == 120
     assert checkout("PPPPP") == 200
     assert checkout("QQQ") == 80
@@ -72,3 +72,12 @@ def test_basic_offers_are_correct() -> None:
     assert checkout("UUUU") == 120
     assert checkout("VV") == 90
     assert checkout("VVV") == 130
+    assert checkout("VVVVV") == 220
+    assert checkout("VVVVVV") == 260
+    assert checkout("AAAAAAAAA") == 380
+
+
+def test_new_special_offers_are_correct() -> None:
+    assert checkout("STX") == 45
+    assert checkout("STXSTXXYZ") == 135
+    assert checkout("ZZZX") == 62
