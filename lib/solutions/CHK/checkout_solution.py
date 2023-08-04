@@ -1,6 +1,6 @@
 # noinspection PyUnusedLocal
 # skus = unicode string
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Optional
 
 A_COST = 50
 B_COST = 30
@@ -10,10 +10,20 @@ D_COST = 15
 
 # create sku class
 class SKU:
-    def __init__(self, sku, cost, multibuy):
+    def __init__(self, sku: str, cost: int, multibuy: Optional[Tuple[int, int]]=None, multibuy2: Optional[Tuple[int, int]]=None):
         self.sku = sku
         self.cost = cost
         self.multibuy = multibuy
+        self.multibuy2 = multibuy2
+
+
+current_skus = {
+    "A": SKU("A", 50, (5, 200)),
+    "B": SKU("B", 30, (2, 45)),
+    "C": SKU("C", 20, None),
+    "D": SKU("D", 15, None),
+    "E": SKU("E", 40, None)
+}
 
 
 
@@ -22,7 +32,7 @@ def assert_valid_input(skus: str) -> None:
     if not isinstance(skus, str):
         raise ValueError("Input must be a string")
     for sku in skus:
-        if sku not in ["A", "B", "C", "D"]:
+        if sku not in ["A", "B", "C", "D", "E"]:
             raise ValueError("Invalid sku")
 
 
@@ -89,5 +99,6 @@ def checkout(skus: str) -> int:
         return total_cost
     except ValueError as e:
         return -1
+
 
 
