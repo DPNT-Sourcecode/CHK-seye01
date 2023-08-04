@@ -59,6 +59,8 @@ def get_sku_counts(skus: str) -> None:
     """
     for sku in skus:
         sku_manager[sku].count += 1
+    for sku in skus:
+        print(f"{sku}: {sku_manager[sku].count}")
 
 
 def calculate_costs() -> None:
@@ -84,5 +86,6 @@ def checkout(skus: str) -> int:
         return total_cost
     except ValueError as e:
         return -1
+
 
 
