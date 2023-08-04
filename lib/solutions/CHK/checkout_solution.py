@@ -40,7 +40,8 @@ sku_manager = {
     "B": SKU("B", 30, multibuy=(2, 45)),
     "C": SKU("C", 20),
     "D": SKU("D", 15),
-    "E": SKU("E", 40)
+    "E": SKU("E", 40),
+    "F": SKU("F", 10, multibuy=(3, 20)),
 }
 
 
@@ -97,3 +98,4 @@ def checkout(skus: str) -> int:
         return total_cost
     except ValueError as e:
         return -1
+
