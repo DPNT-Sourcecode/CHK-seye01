@@ -11,7 +11,7 @@ def test_checkout() -> None:
     assert checkout("BB") == 45
     assert checkout("ABCD") == 115
     assert checkout("AAAAAA") == 250
-    assert checkout("AAAAA") == 230
+    assert checkout("AAAAA") == 200
     assert checkout("ABCABA") == 195
     assert checkout("EEB") == 80
 
@@ -20,4 +20,5 @@ def test_checkout_invalid() -> None:
     assert checkout("Z") == -1
     assert checkout(19) == -1
     assert checkout("A19") == -1
+
 
