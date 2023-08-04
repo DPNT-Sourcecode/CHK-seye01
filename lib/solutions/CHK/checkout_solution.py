@@ -63,6 +63,13 @@ def initialise_sku_manager() -> None:
         sku_manager[sku].total_cost = 0
 
 
+def remove_free_items() -> None:
+    if sku_manager["E"].count >= 2:
+        sku_manager["B"].count = max(sku_manager["B"].count - (sku_manager["E"].count // 2), 0)
+        # Solve the special offer for E, we'll add more functionality later if required
+    raise NotImplementedError
+
+
 def get_sku_counts(skus: str) -> None:
     """
     Get the counts for each sku
@@ -70,9 +77,7 @@ def get_sku_counts(skus: str) -> None:
     initialise_sku_manager()
     for sku in skus:
         sku_manager[sku].count += 1
-    if sku_manager["E"].count >= 2:
-        sku_manager["B"].count = max(sku_manager["B"].count - (sku_manager["E"].count // 2), 0)
-        # Solve the special offer for E, we'll add more functionality later if required
+    remove_free_items()
 
 
 def calculate_costs() -> None:
@@ -98,4 +103,5 @@ def checkout(skus: str) -> int:
         return total_cost
     except ValueError as e:
         return -1
+
 
