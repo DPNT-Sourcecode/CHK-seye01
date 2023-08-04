@@ -27,7 +27,7 @@ class SKU:
         self.count = self.count - (offer_times * multibuy_count)
         self.total_cost = self.total_cost + (offer_times * multibuy_cost)
 
-    def calculate_cost(self) -> int:
+    def calculate_cost(self) -> None:
         if self.multibuy:
             self._handle_multibuy(self.multibuy)
         if self.multibuy2:
@@ -42,6 +42,17 @@ sku_manager = {
     "D": SKU("D", 15),
     "E": SKU("E", 40),
     "F": SKU("F", 10, multibuy=(3, 20)),
+    "G": SKU("G", 20),
+    "H": SKU("H", 10, multibuy=(10, 80), multibuy2=(5, 45)),
+    "I": SKU("I", 35),
+    "J": SKU("J", 60),
+    "K": SKU("K", 80, multibuy=(2, 150)),
+    "L": SKU("L", 90),
+    "M": SKU("M", 15),
+    "N": SKU("N", 40),
+    "O": SKU("O", 10),
+    "P": SKU("P", 50, multibuy=(5, 200)),
+    "Q": SKU
 }
 
 
@@ -101,7 +112,7 @@ def checkout(skus: str) -> int:
         for sku in sku_manager:
             total_cost += sku_manager[sku].total_cost
         return total_cost
-    except ValueError as e:
+    except ValueError:
         return -1
 
 

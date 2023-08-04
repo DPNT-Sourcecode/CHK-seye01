@@ -72,7 +72,6 @@ def test_basic_offers_are_correct() -> None:
     assert checkout("UUUU") == 120
     assert checkout("VV") == 90
     assert checkout("VVV") == 130
-    
 
 
 
