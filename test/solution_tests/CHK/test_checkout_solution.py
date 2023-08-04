@@ -57,14 +57,22 @@ def test_basic_data_entry() -> None:
     assert checkout("Y") == 10
     assert checkout("Z") == 50
 
+
 def test_basic_offers_are_correct() -> None:
     """
     Another Data entry test, but this time for the offers
     """
-    assert checkout ("HHHHH") == 45
-    assert checkout ("HHHHHHHHHH") == 80
-    assert
-
+    assert checkout("HHHHH") == 45
+    assert checkout("HHHHHHHHHH") == 80
+    assert checkout("KK") == 150
+    assert checkout("NNNM") == 120
+    assert checkout("PPPPP") == 200
+    assert checkout("QQQ") == 80
+    assert checkout("RRRQ") == 150
+    assert checkout("UUUU") == 120
+    assert checkout("VV") == 90
+    assert checkout("VVV") == 130
+    
 
 
 
